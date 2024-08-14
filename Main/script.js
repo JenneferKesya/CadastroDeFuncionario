@@ -3,7 +3,8 @@ const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
-const db = new sqlite3.Database('cadastro.db');
+const port = 8080;
+const db = new sqlite3.Database('cadastro.db'); 
 app.use(express.static(path.join(__dirname)));
 app.use(bodyParser.urlencoded({ extended: true }));
 db.serialize(() => {
@@ -24,16 +25,27 @@ db.serialize(() => {
   });
   app.get('/reset', (req, res) => {
     db.serialize(() => {
-      db.run("DELETE FROM users;", (err) => {
+      db.run(`CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        first_name TEXT NOT NULL,
+        last_name TEXT NOT NULL,
+        username TEXT NOT NULL UNIQUE,
+        email TEXT NOT NULL,
+        password TEXT NOT NULL,
+        address TEXT,
+        func TEXT NOT NULL,
+        city TEXT,
+        state TEXT,
+        zip TEXT
+      )`, (err) => {
         if (err) {
-          console.error("Erro ao deletar registros:", err);
-          res.status(500).send("Erro ao deletar registros.");
+          console.error("Erro ao criar tabela:", err);
+          res.status(500).send("Erro ao criar a tabela.");
           return;
         }
         db.get("SELECT * FROM users WHERE username = 'admin'", (err, row) => {
           if (err) {
             console.error("Erro ao verificar usuário admin:", err);
-            res.status(500).send("Erro ao verificar usuário admin.");
             return;
           }
           if (!row) {
@@ -101,8 +113,9 @@ db.serialize(() => {
   app.get('/admin', (req, res) => {
     res.send('<h1>Bem-vindo à administração!</h1>');
   });
-  app.listen(3000, () => {
-    console.log('Servidor rodando na porta 3000');
+  app.listen(port, () => {
+    console.log(`Servidor rodando na porta ${port}`);
   });
 });
+
 
