@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usuários Cadastrados</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-image: linear-gradient(100deg, rgb(0, 0, 0), rgb(15, 65, 33));
+      height: 100vh;
+      overflow: hidden;
+    }
+    h1 {
+      color: #fff;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      text-align: center;
+      color: white;
+    }
+    .btn-edit {
+      color: #fff;
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+    .butt {
+        width: 200px;
+        border-radius: 5px;
+        background-image: linear-gradient(100deg, rgb(0, 145, 20), rgb(13, 191, 78));      
+    }
+    a {
+        text-decoration: none;
+        color: #000000;
+    }
+    a:hover {
+        text-decoration: none;
+        color: #000000;
+    }
+  </style>
+</head>
+<body>
+  <h1>Usuários Cadastrados</h1>
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Sobrenome</th>
+        <th scope="col">Função</th>
+        <th scope="col">Usuário</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody id="user-list">
+      <button class="butt"><a href="http://localhost:3000/reset">Apagar Dados</a></button>
+    </tbody>
+  </table>
+  <script>
+    function loadUsers() {
+      fetch('/usuarios/data')
+        .then(response => response.json())
+        .then(data => {
+          console.log("Dados recebidos para a página de usuários:", data); 
+          const userList = document.getElementById('user-list');
+          userList.innerHTML = ''; 
+          if (data.length === 0) {
+            const noDataRow = document.createElement('tr');
+            noDataRow.innerHTML = '<td colspan="5">Nenhum usuário cadastrado.</td>';
+            userList.appendChild(noDataRow);
+          } else {
+            data.forEach(user => {
+              const row = document.createElement('tr');
+              row.innerHTML = `
+                <td>${user.first_name}</td>
+                <td>${user.last_name}</td>
+                <td>${user.func}</td> 
+                <td>${user.username}</td>
+                <td>${user.email}</td>
+              `;
+              userList.appendChild(row);
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Erro ao carregar usuários:', error);
+        });
+    }
+    window.onload = loadUsers;
+  </script>

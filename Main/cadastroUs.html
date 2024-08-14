@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Cadastro de Funcionário</title>
+    <style>
+        body {
+            background-image: linear-gradient(100deg, rgb(0, 0, 0), rgb(15, 65, 33));
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .mx-auto {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border-radius: 15px;
+            color: white;
+            min-width: 95%; 
+            border: 3px solid #1DB954;
+            background-color: black;
+        }
+        .quest {
+            width: 100%;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h1{
+            margin-bottom: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .form-control {
+            width: 100%;
+            border: none;
+            border-bottom: 2px solid #ffffff; 
+            background-color: transparent;
+            outline: none;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .log{
+            font-size: 15px;
+        }
+        .butt{
+            width: 40%;
+            border-radius: 5px;
+            background-image: linear-gradient(100deg, rgb(0, 145, 20), rgb(13, 191, 78));       
+        }
+        a{
+            text-decoration: none;
+            color: #000000;
+        }
+        a:hover{
+            text-decoration: none;
+            color: #000000;
+        }
+        .success-message {
+            display: none;
+            color: green;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .success-image {
+            display: none;
+            width: 100px;
+            height: auto;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="mx-auto" style="width: 350px;">
+        <h1>Cadastro de funcionário</h1>
+        <form id="registration-form" method="POST" action="/cadastro">
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label class="quest" for="first_name">Primeiro nome</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Nome" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="quest" for="last_name">Sobrenome</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Sobrenome" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-12 mb-3">
+                    <label class="quest" for="username">Usuário</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Usuário" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-12 mb-3">
+                    <label class="quest" for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="func">Função</label>
+                <select class="form-control" id="func" name="func" required>
+                    <option value="">Escolher...</option>
+                    <option>Coordenador</option>
+                    <option>Gerente</option>
+                    <option>Vendedor</option>
+                    <option>Analista</option>
+                    <option>Desenvolvedor</option>
+                    <option>Assistente</option>
+                    <option>Diretor</option>
+                    <option>Consultor</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label class="quest" for="password">Senha</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="quest" for="address">Endereço</label>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="Apartamento, hotel, casa, etc.">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label class="quest" for="city">Cidade</label>
+                    <input type="text" class="form-control" id="city" name="city" placeholder="Cidade">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="quest" for="state">Estado</label>
+                    <select id="state" name="state" class="form-control">
+                        <option value="">Escolher...</option>
+                        <option>AC</option>
+                        <option>AL</option>
+                        <option>AM</option>
+                        <option>AP</option>
+                        <option>BA</option>
+                        <option>CE</option>
+                        <option>DF</option>
+                        <option>ES</option>
+                        <option>GO</option>
+                        <option>MA</option>
+                        <option>MG</option>
+                        <option>MS</option>
+                        <option>MT</option>
+                        <option>PA</option>
+                        <option>PB</option>
+                        <option>PE</option>
+                        <option>PI</option>
+                        <option>PR</option>
+                        <option>RJ</option>
+                        <option>RN</option>
+                        <option>RO</option>
+                        <option>RR</option>
+                        <option>RS</option>
+                        <option>SC</option>
+                        <option>SE</option>
+                        <option>SP</option>
+                        <option>TO</option>
+                    </select>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label class="quest" for="zip">CEP</label>
+                    <input type="text" class="form-control" id="zip" name="zip" placeholder="CEP">
+                </div>
+            </div>
+            <div class="row justify-content-between">
+              <div class="col-4">
+                <button type="submit" class="butt">Cadastrar</button>             
+               </div>
+              <div class="col-4">
+                <a href="http://localhost:3000/usuarios" class="butt" style="display: block; text-align: center; margin: 20px auto;">Visualizar Usuários</a>
+              </div>
+        </form>
+    </div>
+</body>
+</html>
+
